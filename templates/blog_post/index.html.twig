@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BlogPost index{% endblock %}
+
+{% block body %}
+
+<h1 class="text-center">Blog Symfony</h1>
+
+{% include ('elements/nav.html.twig') %}
+
+<div class="container">
+
+      <div class="text-center">
+      
+          <img src="{{ asset('images/un.jpg') }}" alt="" style="height: 330px;">
+      
+      </div>
+
+</div>
+
+<div class="container">
+    <a href="{{ path('blog_post_new') }}">Create new</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>KeyPost</th>
+                <th>Lng</th>
+                <th>Title</th>
+                <th>Image</th>
+                <th>Content</th>
+                <th>Enabled</th>
+                <th>Date_publication</th>
+                <th>Date_creation</th>
+                <th>Date_modification</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for blog_post in blog_posts %}
+            <tr>
+                <td>{{ blog_post.id }}</td>
+                <td>{{ blog_post.keyPost }}</td>
+                <td>{{ blog_post.lng }}</td>
+                <td>{{ blog_post.title }}</td>
+                <td><img src="{{ asset('images/' ~ blog_post.image) }}" alt="" style="width: 130px;"></td>
+                <td>{{ blog_post.content }}</td>
+                <td>{{ blog_post.enabled ? 'Yes' : 'No' }}</td>
+                <td>{{ blog_post.datePublication ? blog_post.datePublication|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ blog_post.dateCreation ? blog_post.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ blog_post.dateModification ? blog_post.dateModification|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('blog_post_show', {'id': blog_post.id}) }}">show</a>
+                    <a href="{{ path('blog_post_edit', {'id': blog_post.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

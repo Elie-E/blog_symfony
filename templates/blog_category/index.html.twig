@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BlogCategory index{% endblock %}
+
+{% block body %}
+
+<h1 class="text-center">Catégories</h1>
+
+{% include ('elements/nav.html.twig') %}
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>KeyCat</th>
+                <th>Lng</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Sort</th>
+                <th>Date_creation</th>
+                <th>Date_modification</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for blog_category in blog_categories %}
+            <tr>
+                <td>{{ blog_category.id }}</td>
+                <td>{{ blog_category.keyCat }}</td>
+                <td>{{ blog_category.lng }}</td>
+                <td>{{ blog_category.title }}</td>
+                <td>{{ blog_category.description }}</td>
+                <td>{{ blog_category.sort }}</td>
+                <td>{{ blog_category.dateCreation ? blog_category.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ blog_category.dateModification ? blog_category.dateModification|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('blog_category_show', {'id': blog_category.id}) }}">show</a>
+                    <a href="{{ path('blog_category_edit', {'id': blog_category.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('blog_category_new') }}">Create new</a>
+{% endblock %}

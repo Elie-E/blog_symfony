@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BlogPost{% endblock %}
+
+{% block body %}
+    <h1>BlogPost</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ blog_post.id }}</td>
+            </tr>
+            <tr>
+                <th>KeyPost</th>
+                <td>{{ blog_post.keyPost }}</td>
+            </tr>
+            <tr>
+                <th>Lng</th>
+                <td>{{ blog_post.lng }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ blog_post.title }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset('images/' ~ blog_post.image) }}" alt="" style="width: 130px;"></td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ blog_post.content }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ blog_post.enabled ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Date_publication</th>
+                <td>{{ blog_post.datePublication ? blog_post.datePublication|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_creation</th>
+                <td>{{ blog_post.dateCreation ? blog_post.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_modification</th>
+                <td>{{ blog_post.dateModification ? blog_post.dateModification|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Categories</th>
+
+                {% for category in blog_post.category %}
+                {{ dump(category) }}
+                <td>{{ category.getTitle() }}</td>
+                {% endfor %}
+
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('blog_post_index') }}">back to list</a>
+
+    <a href="{{ path('blog_post_edit', {'id': blog_post.id}) }}">edit</a>
+
+    {{ include('blog_post/_delete_form.html.twig') }}
+{% endblock %}
